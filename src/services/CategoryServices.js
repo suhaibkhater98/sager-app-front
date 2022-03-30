@@ -30,7 +30,6 @@ class CategoryServices {
     updateCategory(category, categoryId)
     {
         return axios.put(USERS_API_BASE_URL + '/' + categoryId, category , header);
-        debugger
     }
 
     deleteCategory(categoryId){

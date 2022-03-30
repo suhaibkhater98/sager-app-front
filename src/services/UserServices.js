@@ -14,26 +14,12 @@ class UserService {
 
 
     getUsers(pageNum = 1){
-        return axios.get(USERS_API_BASE_URL+ "?page=" + pageNum,
-        {
-            withCredentials: true , 
-            headers: {
-                "content-type": "application/json",
-                "accept": "application/json",
-            }
-        }); 
+        return axios.get(USERS_API_BASE_URL+ "?page=" + pageNum, header); 
     }
 
     createUser(user)
     {
-        return axios.post(USERS_API_BASE_URL, user , 
-        {
-            withCredentials: true , 
-            headers: {
-                "content-type": "application/json",
-                "accept": "application/json",
-            }
-        });
+        return axios.post(USERS_API_BASE_URL, user , header);
     }
 
     getUserById(userId)

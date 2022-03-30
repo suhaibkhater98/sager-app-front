@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row , Alert} from 'reactstrap'
-import UserService from '../../services/UserServices';
 import CategoryServices from '../../services/CategoryServices';
+import ProductServices from '../../services/ProductServices';
 import {Link} from "react-router-dom";
 import Select from 'react-select'
+import NumericInput from 'react-numeric-input';
 
 
 
@@ -14,8 +15,8 @@ export default class CreateEmployeeComponent extends Component {
         this.state = {
             name: '',
             description: '',
-            quantity: '',
-            price:'',
+            quantity: 1,
+            price:1,
             categoires:[],
             selectedValue:[],
             passMessage:'',
@@ -42,11 +43,11 @@ export default class CreateEmployeeComponent extends Component {
 
     saveCategory = (e) => {
         e.preventDefault();
-        let user = {name: this.state.name, password: this.state.password, email: this.state.email};
 
-        UserService.createUser(user).then(res => {
-            console.log(res)
-            window.location = '/users/index';
+        let product = {name: this.state.name, description: this.state.description, quantity: this.state.quantity,price:this.state.price,categories:this.state.selectedValue};
+
+        ProductServices.createProduct(product).then(res => {
+            window.location = '/products/index';
         }).catch( err => {
             this.setState({
                 message: "Please input valid data"
@@ -59,9 +60,24 @@ export default class CreateEmployeeComponent extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    onChange(value){
+    onChangeQuantity = (value) => {
         this.setState({
-            selectedValue:value
+            quantity: value
+        })
+    }
+
+    onChangePrice = (value) => {
+        this.setState({
+            price: value
+        })
+    }
+    onChange(value){
+        let temp = []
+        Object.values(value).forEach(data => {
+            temp.push(data.value)
+        })
+        this.setState({
+            selectedValue:temp
         })
     }
 
@@ -72,7 +88,7 @@ export default class CreateEmployeeComponent extends Component {
                     <Row>
                         <Card>
                             <Col>
-                                <h3>Add Employee</h3>
+                                <h3>Add Product</h3>
                                 {this.state.message && (
                                     <div className="form-group">
                                     <div className="alert alert-danger" role="alert">
@@ -87,16 +103,23 @@ export default class CreateEmployeeComponent extends Component {
                                             <input name="name" className='form-control' value={this.state.name} onChange={this.changeHandler}></input>
                                         </FormGroup>
                                         <FormGroup style={{padding:"1em"}}>
-                                            <label>Password :</label>
-                                            <input name="password" className='form-control' value={this.state.password} onChange={this.changeHandler}></input>
+                                            <label>Description :</label>
+                                            <textarea name="description" className='form-control' value={this.state.description} onChange={this.changeHandler} />
                                         </FormGroup>
                                         <FormGroup style={{padding:"1em"}}>
-                                            <label>Email :</label>
-                                            <input name="email" className='form-control' value={this.state.email} onChange={this.changeHandler}></input>
+                                            <label>Quantity :</label>
+                                            <NumericInput className="form-control" name="quantity" min={1} max={100} value={this.state.quantity} onChange={this.onChangeQuantity}/>
                                         </FormGroup>
-                                        <Select isMulti options={this.state.categoires} onChange={this.onChange}/>
-                                        <Button color="success" onClick={this.saveEmployee}>Save</Button>
-                                        <Link style={{"margin":"5px"}} to={"/users/index"} className="btn btn-danger">Cancel</Link>
+                                        <FormGroup style={{padding:"1em"}}>
+                                            <label>Price :</label>
+                                            <NumericInput className="form-control" name="price" step={0.5} min={1} value={this.state.price} onChange={this.onChangePrice}/>
+                                        </FormGroup>
+                                        <FormGroup style={{padding:"1em"}}>
+                                            <label>Categories :</label>
+                                            <Select isMulti options={this.state.categoires} onChange={this.onChange}/>
+                                        </FormGroup>
+                                        <Button color="success" onClick={this.saveCategory}>Save</Button>
+                                        <Link style={{"margin":"5px"}} to={"/products/index"} className="btn btn-danger">Cancel</Link>
                                     </Form>
                                 </CardBody>
                             </Col>

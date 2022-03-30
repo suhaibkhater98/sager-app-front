@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import UserService from '../../services/UserServices';
 import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row } from 'reactstrap'
 import { useParams , Navigate } from "react-router";
+import CategoryServices from '../../services/CategoryServices';
+import ProductServices from '../../services/ProductServices';
+import Select from 'react-select'
+import NumericInput from 'react-numeric-input';
+import {Link} from "react-router-dom";
 
 class UpdateEmployeeComponent extends Component {
     
@@ -13,30 +17,59 @@ class UpdateEmployeeComponent extends Component {
         this.state = {
             id: this.props.params.id,
             name: '',
-            password: '',
-            message:'',
+            description: '',
+            quantity: 1,
+            price:1,
+            categoires:[],
+            selectedValue:[],
+            passMessage:'',
+            emailMessage:'',
+            message:''
         }
 
         this.changeHandler = this.changeHandler.bind(this);
-        this.updateUser = this.updateUser.bind(this);
+        this.updateProduct = this.updateProduct.bind(this);
+        this.onChange = this.onChange.bind(this)
     }
 
 
     componentDidMount(){
-        UserService.getUserById(this.state.id).then( (res)=>{
-            let user = res.data.data;
+        ProductServices.getProductById(this.state.id).then( (res)=>{
+            let product = res.data.data;
             this.setState({
-                name: user.name,
+                name: product.name,
+                description: product.description,
+                quantity: product.quantity,
+                price: product.price,
+                selectedValue: product.category_ids,
             });
         });
+
+        CategoryServices.getCategoriesList().then(res => {
+            let temp = []
+            Object.values(res.data.data).forEach(data => {
+                temp.push({label:data.name , value:data.id})
+            })
+            this.setState({
+                categoires:temp
+            })
+        })
     }
 
-    updateUser = (e) => {
+    updateProduct = (e) => {
         e.preventDefault();
-        let user = {name: this.state.name, password: this.state.password};
+        let product = {
+            id:this.state.id,
+            name: this.state.name,
+            description: this.state.description,
+            quantity: this.state.quantity,
+            price: this.state.price,
+            categories: this.state.selectedValue,
+        };
 
-        UserService.updateUser(user, this.state.id).then( res=> {
-            window.location = '/users/index';
+        ProductServices.updateProduct(product, this.state.id).then( res => {
+            console.log(res)
+            window.location = '/products/index';
         } , error => {
             this.setState({
                 message: "Please input valid data"
@@ -49,9 +82,22 @@ class UpdateEmployeeComponent extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    cancel()
-    {
-        window.location = '/users/index';
+    onChangeQuantity = (value) => {
+        this.setState({
+            quantity: value
+        })
+    }
+
+    onChangePrice = (value) => {
+        this.setState({
+            price: value
+        })
+    }
+
+    onChange(value){
+        this.setState({
+            selectedValue:value
+        })
     }
 
     render() {
@@ -71,16 +117,28 @@ class UpdateEmployeeComponent extends Component {
                                 )}
                                 <CardBody>
                                     <Form>
-                                        <FormGroup style={{padding:"1em"}}>
+                                    <FormGroup style={{padding:"1em"}}>
                                             <label>Name:</label>
                                             <input name="name" className='form-control' value={this.state.name} onChange={this.changeHandler}></input>
                                         </FormGroup>
                                         <FormGroup style={{padding:"1em"}}>
-                                            <label>Password:</label>
-                                            <input name="password" className='form-control' value={this.state.password} onChange={this.changeHandler}></input>
+                                            <label>Description :</label>
+                                            <textarea name="description" className='form-control' value={this.state.description} onChange={this.changeHandler} />
                                         </FormGroup>
-                                        <Button color="success" onClick={this.updateUser}>Save</Button>
-                                        <Button color="danger"onClick={() => this.cancel()}>Cancel</Button>
+                                        <FormGroup style={{padding:"1em"}}>
+                                            <label>Quantity :</label>
+                                            <NumericInput className="form-control" name="quantity" min={1} max={100} value={this.state.quantity} onChange={this.onChangeQuantity}/>
+                                        </FormGroup>
+                                        <FormGroup style={{padding:"1em"}}>
+                                            <label>Price :</label>
+                                            <NumericInput className="form-control" name="price" step={0.5} min={1} value={this.state.price} onChange={this.onChangePrice}/>
+                                        </FormGroup>
+                                        <FormGroup style={{padding:"1em"}}>
+                                            <label>Categories :</label>
+                                            <Select isMulti options={this.state.categoires} value={this.state.selectedValue} onChange={this.onChange}/>
+                                        </FormGroup>
+                                        <Button color="success" onClick={this.updateProduct}>Save</Button>
+                                        <Link style={{"margin":"5px"}} to={"/products/index"} className="btn btn-danger">Cancel</Link>
                                     </Form>
                                 </CardBody>
                             </Col>

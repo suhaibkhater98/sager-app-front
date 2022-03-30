@@ -7254,6 +7254,11 @@
     "react" "15.x.x - 16.x.x"
     "tar" "2.2.2"
 
+"react-numeric-input@^2.2.3":
+  "integrity" "sha1-S/WRjD6v7YUagN8euZLZQQArtVI="
+  "resolved" "https://registry.npmjs.org/react-numeric-input/-/react-numeric-input-2.2.3.tgz"
+  "version" "2.2.3"
+
 "react-popper@^2.2.4":
   "integrity" "sha512-kxGkS80eQGtLl18+uig1UIf9MKixFSyPxglsgLBxlYnyDf65BiY9B3nZSc6C9XUNDgStROB0fMQlTEz1KxGddw=="
   "resolved" "https://registry.npmjs.org/react-popper/-/react-popper-2.2.5.tgz"
@@ -7371,7 +7376,7 @@
     "shallow-equal" "^1.0.0"
     "uuid" "^3.1.0"
 
-"react@*", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>= 16", "react@>=16.0.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>= 16", "react@>=0.14.0 || ^15.6.1 || ^16.0.0", "react@>=16.0.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
