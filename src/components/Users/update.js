@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import UserService from '../../services/UserServices';
 import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row } from 'reactstrap'
-import { useParams , Navigate } from "react-router";
+import { useParams } from "react-router";
 
 class UpdateEmployeeComponent extends Component {
     

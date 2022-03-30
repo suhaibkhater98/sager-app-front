@@ -37,7 +37,7 @@ export default class ListProductsComponent extends Component {
 
     decQuntity(id){
         ProductServices.decQuantity(id).then( res => {
-            if(res.data.success == 1){
+            if(res.data.success === 1){
                 this.setState({
                     messageSuccess: res.data.message
                 })
@@ -67,7 +67,7 @@ export default class ListProductsComponent extends Component {
                 label: 'Yes',
                 onClick: () => {
                     ProductServices.deleteProduct(id).then( res => {
-                        if(res.data.success == 1){
+                        if(res.data.success === 1){
                             this.setState({
                                 messageSuccess: res.data.message
                             })

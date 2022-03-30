@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row , Alert} from 'reactstrap'
+import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row } from 'reactstrap'
 import UserService from '../../services/UserServices';
 import {Link} from "react-router-dom";
 
@@ -26,17 +26,17 @@ export default class CreateEmployeeComponent extends Component {
         let user = {name: this.state.name, password: this.state.password, email: this.state.email};
 
         UserService.createUser(user).then(res => {
-            if(res.data.success == 0){
+            if(res.data.success === 0){
                 Object.keys(res.data.data).forEach(key => {
-                    if(key == 'email'){
+                    if(key === 'email'){
                         this.setState({
                             emailMessage:res.data.data[key][0]
                         })
-                    } else if(key == 'password') {
+                    } else if(key === 'password') {
                         this.setState({
                             passMessage:res.data.data[key][0]
                         })
-                    } else if(key == 'name') {
+                    } else if(key === 'name') {
                         this.setState({
                             nameMessage:res.data.data[key][0]
                         })

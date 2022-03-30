@@ -45,7 +45,7 @@ export default class ListUsersComponent extends Component {
                 label: 'Yes',
                 onClick: () => {
                     CategoryServices.deleteCategory(id).then( res => {
-                        if(res.data.success == 1){
+                        if(res.data.success === 1){
                             this.setState({
                                 messageSuccess: res.data.message
                             })

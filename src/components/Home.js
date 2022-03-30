@@ -17,7 +17,7 @@ class Home extends Component{
   componentDidMount(){
 
     DashboardServices.getCountTotal().then( res => {
-      if(res.data.success == 1){
+      if(res.data.success === 1){
         this.setState({
           totalCategories: res.data.data.totalCategories,
           totalProducts: res.data.data.totalProducts,

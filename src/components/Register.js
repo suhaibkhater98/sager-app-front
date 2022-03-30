@@ -3,7 +3,6 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import axios from "axios";
 
 import AuthService from "../services/auth.service";
 
@@ -84,7 +83,7 @@ const Register = (props) => {
       //axios.get('http://localhost:8000/sanctum/csrf-cookie' , {withCredentials: true});
       AuthService.register(name, email, password).then(
         (response) => {
-          if(response.data.success == 0){
+          if(response.data.success === 0){
             Object.values(response.data.data).forEach(value => {
               setMessage(value[0]);
             })

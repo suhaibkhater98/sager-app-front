@@ -1,9 +1,7 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import axios from "axios";
 import AuthService from "../services/auth.service";
 
 const required = (value) => {
@@ -28,7 +26,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
 
 
-  const onChangeUsername = (e) => {
+  const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
   };
@@ -74,13 +72,13 @@ const Login = () => {
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <Input
               type="email"
               className="form-control"
               name="email"
               value={email}
-              onChange={onChangeUsername}
+              onChange={onChangeEmail}
               validations={[required]}
             />
           </div>

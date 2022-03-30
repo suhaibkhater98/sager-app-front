@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row , Image} from 'reactstrap'
-import { useParams , Navigate } from "react-router";
+import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row } from 'reactstrap'
+import { useParams } from "react-router";
 import CategoryServices from '../../services/CategoryServices';
 import ProductServices from '../../services/ProductServices';
 import Select from 'react-select'
@@ -167,7 +167,7 @@ class UpdateEmployeeComponent extends Component {
                                             <label>Categories: <span style={{"color":"red"}}>*</span></label>
                                             <Select isMulti options={this.state.categoires} value={this.state.selectedValue} onChange={this.onChangeMulti}/>
                                         </FormGroup>
-                                        <FormGroup style={{padding:"1em"}}> <img style={{"height":"150px","width":"350px"}}  src={this.state.fileUploaded} /> </FormGroup>
+                                        <FormGroup style={{padding:"1em"}}> <img alt='Product' style={{"height":"150px","width":"350px"}}  src={this.state.fileUploaded} /> </FormGroup>
                                         <FormGroup style={{padding:"1em"}}>
                                             <label>Image :</label>
                                             <input type="file" onChange={this.onChangeFile}/>
