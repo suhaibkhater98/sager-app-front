@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import Cookies from 'js-cookie';
 import axios from "axios";
 import AuthService from "../services/auth.service";
 
@@ -28,7 +27,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const navigate = useNavigate();
 
   const onChangeUsername = (e) => {
     const email = e.target.value;
@@ -49,14 +47,11 @@ const Login = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      
-        axios.get('http://localhost:8000/sanctum/csrf-cookie' , {withCredentials: true}).then(response => {
-          console.log(response)
-        });
+
+        axios.get('http://localhost:8000/sanctum/csrf-cookie' , {withCredentials: true});
         AuthService.login(email, password).then((response) => {
           localStorage.setItem('user' , JSON.stringify(response.data.user))
-          navigate("/home");
-          window.location.reload();
+          window.location = '/home';
         }).catch( (error) => {
           setMessage(error.response.data.message)
           setLoading(false);

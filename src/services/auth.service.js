@@ -28,8 +28,6 @@ const logout = () => {
       "accept": "application/json",
     },
     withCredentials: true
-  }).then((response) => {
-    return response.data;
   });
 };
 

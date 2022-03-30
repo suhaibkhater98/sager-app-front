@@ -20,7 +20,6 @@ import AddProductComponent from "./components/Products/add";
 import UpdateProductComponent from "./components/Products/update";
 
 
-import PrivateRoute from "./common/AuthVerify";
 import EventBus from "./common/EventBus";
 
 const App = () => {
@@ -43,8 +42,10 @@ const App = () => {
   }, []);
 
   const logOut = () => {
-    AuthService.logout();
-    setCurrentUser(undefined);
+    AuthService.logout().then( res => {
+      console.log(res)
+    });
+    //setCurrentUser(undefined);
   };
   const isLoggedIn = JSON.parse(localStorage.getItem("user")) != null
 
@@ -120,13 +121,11 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
-          <Route exact path={"/"} element={<Home />} />
-          <Route exact path={"/home"} element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
           {
             isLoggedIn ?
             <>
+              <Route exact path={"/"} element={<Home />} />
+              <Route exact path={"/home"} element={<Home />} />
               <Route exact path="/profile" element={<Profile />} />
               <Route path="/users/index" element={<ListUsersComponent />} />
               <Route path="/users/add" element={<AddUserComponent />} />
@@ -139,9 +138,12 @@ const App = () => {
               <Route path="/products/update/:id" element={<UpdateProductComponent />} />
             </>
             :
-            ''
+            <>
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/register" element={<Register />} />
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            </>
           }
-          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
 

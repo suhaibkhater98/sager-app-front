@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import axios from "axios";
 
 import AuthService from "../services/auth.service";
 
@@ -40,7 +41,7 @@ const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="invalid-feedback d-block">
-        The password must be between 6 and 40 characters.
+        The password must be more than 8 and contain one uppercase and one lowercase.
       </div>
     );
   }
@@ -80,6 +81,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
+      axios.get('http://localhost:8000/sanctum/csrf-cookie' , {withCredentials: true});
       AuthService.register(username, email, password).then(
         (response) => {
           setMessage(response.data.message);

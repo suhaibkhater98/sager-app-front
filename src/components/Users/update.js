@@ -77,7 +77,7 @@ class UpdateEmployeeComponent extends Component {
                                         </FormGroup>
                                         <FormGroup style={{padding:"1em"}}>
                                             <label>Password:</label>
-                                            <input name="password" className='form-control' value={this.state.password} onChange={this.changeHandler}></input>
+                                            <input type="password" name="password" className='form-control' value={this.state.password} onChange={this.changeHandler}></input>
                                         </FormGroup>
                                         <Button color="success" onClick={this.updateUser}>Save</Button>
                                         <Button color="danger"onClick={() => this.cancel()}>Cancel</Button>
