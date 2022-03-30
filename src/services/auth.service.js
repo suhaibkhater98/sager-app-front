@@ -3,9 +3,9 @@ import Cookies from 'js-cookie';
 
 const API_URL = "http://localhost:8000/api/v1/users/";
 
-const register = (username, email, password) => {
+const register = (name, email, password) => {
   return axios.post(API_URL + "register", {
-    username,
+    name,
     email,
     password,
   });
@@ -22,13 +22,13 @@ const login = (email, password) => {
 
 const logout = () => {
   localStorage.removeItem("user")
-  return axios.post(API_URL + "logout", {} , {
+  axios.post(API_URL + "logout", {} , {
     headers: {
       "content-type": "application/json",
       "accept": "application/json",
     },
     withCredentials: true
-  });
+  })
 };
 
 const getCurrentUser = () => {

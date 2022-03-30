@@ -48,7 +48,7 @@ const Login = () => {
 
     if (checkBtn.current.context._errors.length === 0) {
 
-        axios.get('http://localhost:8000/sanctum/csrf-cookie' , {withCredentials: true});
+        //axios.get('http://localhost:8000/sanctum/csrf-cookie' , {withCredentials: true});
         AuthService.login(email, password).then((response) => {
           localStorage.setItem('user' , JSON.stringify(response.data.user))
           window.location = '/home';

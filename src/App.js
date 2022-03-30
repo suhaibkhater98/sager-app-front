@@ -42,10 +42,7 @@ const App = () => {
   }, []);
 
   const logOut = () => {
-    AuthService.logout().then( res => {
-      console.log(res)
-    });
-    //setCurrentUser(undefined);
+    AuthService.logout();
   };
   const isLoggedIn = JSON.parse(localStorage.getItem("user")) != null
 
