@@ -7,6 +7,8 @@ import AuthService from "./services/auth.service";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ResetPassword from "./components/ResetPassword";
+import ForgotPassword from "./components/ForgotPassword";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import ListUsersComponent from "./components/Users/Index";
@@ -138,6 +140,8 @@ const App = () => {
             <>
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/register" element={<Register />} />
+              <Route exact path="/reset-password" element={<ResetPassword />} />
+              <Route exact path="/forgot-password" element={<ForgotPassword />} />
               <Route path="*" element={<Navigate to="/login" replace />} />
             </>
           }

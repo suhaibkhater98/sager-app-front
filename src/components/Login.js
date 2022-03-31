@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
+import {Link} from "react-router-dom";
 
 const required = (value) => {
   if (!value) {
@@ -93,6 +94,10 @@ const Login = () => {
               onChange={onChangePassword}
               validations={[required]}
             />
+          </div>
+
+          <div>
+            <Link style={{"margin":"5px"}} to={"/forgot-password"} className="btn">Forgot Password</Link>
           </div>
 
           <div className="form-group">

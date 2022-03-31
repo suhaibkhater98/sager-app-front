@@ -34,11 +34,20 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+const forgotPassowrd = (email) => {
+  return axios.post("http://localhost:8000/api/v1/forgot-password", {email});
+}
+
+const ResetPassword = (email , password , password_confirmation , token) => {
+  return axios.post("http://localhost:8000/api/v1/reset-password", {email , password, password_confirmation , token});
+}
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  forgotPassowrd,
+  ResetPassword,
 }
 
 export default AuthService;
