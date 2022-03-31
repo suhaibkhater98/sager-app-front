@@ -39,5 +39,8 @@ class ProductServices {
         return axios.post(USERS_API_BASE_URL + "/decQuantity" , {"id":productId} , header)
     }
 
+    getProductsWithOutPagination(){
+        return axios.get(USERS_API_BASE_URL+ "?withOutPagination=true", header); 
+    }
 }
 export default new ProductServices()
